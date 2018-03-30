@@ -2,7 +2,12 @@
 import * as React from 'react';
 import './App.css';
 import { DefaultButton, IButton } from 'office-ui-fabric-react/lib/Button';
-import { SearchBox, SearchBoxBase, ISearchBoxStyleProps, ISearchBoxStyles } from 'office-ui-fabric-react/lib/SearchBox';
+import { 
+  SearchBox, 
+  SearchBoxBase, 
+  ISearchBoxStyleProps, 
+  ISearchBoxStyles, 
+  ISearchBoxProps } from 'office-ui-fabric-react/lib/SearchBox';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
@@ -23,9 +28,9 @@ class MyComponent extends BaseComponent {
   render() {
 
     // Use styled function to create variants of existing controls with unique styles and default props
-    const MySearchBox = styled(
+    const MySearchBox = styled<ISearchBoxProps, ISearchBoxStyleProps, ISearchBoxStyles>(
       SearchBoxBase,
-      this._getSearchStyles,
+      (props) => ({}),
       (props) => {
         return (
           {
@@ -44,13 +49,16 @@ class MyComponent extends BaseComponent {
           <DefaultButton
             // Apply ref to componentRef instead of ref
             componentRef={this._root}
+            // flag props should describe the non standard state. 
+            // This way we don't need to state true or false, and it works just like HTML properties
+            primary
             className="myClassName"
             // Any valid id/className/data-*/aria-* value will be passed on to component
-            data-foo="hello"
+            data-foo="*"
             // onRender functions allow overriding or append/prepending or default renderer 
             onRenderMenuIcon={(props, defaultRender) => {
               return (
-                <span>{props!['data-foo']} {defaultRender!()} </span>
+                <span>{defaultRender!()} {props!['data-foo']}</span>
               );
             }}
             // all callback functions start with 'on'. Include subject if it is not the root element
