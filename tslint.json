@@ -1,5 +1,6 @@
 {
     "extends": ["tslint-react"],
+    "defaultSeverity": "warning",
     "rules": {
         "align": [
             true,
@@ -19,6 +20,7 @@
         "indent": [ true, "spaces" ],
         "interface-name": [true, "never-prefix"],
         "jsdoc-format": true,
+        "jsx-boolean-value": false,
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
         "label-position": true,
@@ -33,7 +35,7 @@
         "no-arg": true,
         "no-bitwise": true,
         "no-console": [
-            true,
+            false,
             "log",
             "error",
             "debug",
