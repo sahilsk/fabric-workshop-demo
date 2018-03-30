@@ -1,20 +1,19 @@
+
 import * as React from 'react';
 import './App.css';
+import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
+import { initializeIcons } from 'office-ui-fabric-react/lib/Icons';
 
-const logo = require('./logo.svg');
+// Initialize Icons
+initializeIcons();
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+       // wrap application in Fabric to support focus styles and to add default styles
+      <Fabric className="App">
+      <br/>
+      </Fabric>
     );
   }
 }
