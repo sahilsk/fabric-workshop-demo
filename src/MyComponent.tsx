@@ -22,12 +22,17 @@ export class MyComponent extends BaseComponent {
  
     return (
       <div>
-        <div style={{display: 'flex', marginBottom: 50}}>
+        <div style={{display: 'flex', justifyContent: 'space-around', marginBottom: 50}}>
 
           <DefaultButton
-            text="Click Me"
             // Apply ref to componentRef instead of ref
             componentRef={this._root}
+            styles={{
+              rootHovered: {
+                boxShadow: '4px 4px 4px black'
+              }
+            }}
+            text="Click Me"
             // flag props should describe the non standard state. 
             // This way we don't need to state true or false, and it works just like HTML properties
             primary
@@ -64,14 +69,13 @@ export class MyComponent extends BaseComponent {
           
           <Toggle onChanged={this._onToggleChanged} />
 
-        </div>
-
-        <SearchBox 
+          <SearchBox 
             getStyles={this._getSearchStyles}
             placeholder="Search Something"
-        />
+          />
 
-        <MySearchBox />
+          <MySearchBox />
+        </div>
         
       </div>
     );
@@ -88,14 +92,14 @@ export class MyComponent extends BaseComponent {
     );
   }
 
-  private _onMenuClick = (ev) => {
+  private _onMenuClick = (ev: React.MouseEvent<HTMLElement>) => {
     if (ev && ev.shiftKey) {
       // prevent default behavior from occuring (opening and closing of menu)
       ev.preventDefault();
     }
   }
 
-  private _onToggleChanged = (checked) => {
+  private _onToggleChanged = (checked: boolean) => {
     // Access the referenced button and all of its public methods
     const button = this._root.value!;
     checked ? button.openMenu() : button.dismissMenu();
