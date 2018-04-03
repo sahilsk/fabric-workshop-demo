@@ -6,7 +6,8 @@ import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { 
   SearchBox, 
   ISearchBoxStyleProps, 
-  ISearchBoxStyles } from 'office-ui-fabric-react/lib/SearchBox';
+  ISearchBoxStyles 
+} from 'office-ui-fabric-react/lib/SearchBox';
 import { MySearchBox } from './MySearch';
 
 // Put consts in file scope
