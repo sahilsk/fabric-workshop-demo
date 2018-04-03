@@ -19,7 +19,7 @@ export const MySearchBox = styled<ISearchBoxProps, ISearchBoxStyleProps, ISearch
         return (
           {
             className: 'ms-MySearchBox',
-            placeholder: 'Search Something'
+            placeholder: 'Please {$props.placeholder}'
           }
         );
       }
