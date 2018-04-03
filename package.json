@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "office-ui-fabric-react": "^5.74.0",
+    "office-ui-fabric-react": "^5.78.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-scripts-ts": "2.14.0"
