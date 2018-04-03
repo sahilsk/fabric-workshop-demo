@@ -11,6 +11,7 @@ import { MySearchBox } from './MySearch';
 
 // Put consts in file scope
 const GAPSPACE = 20;
+const BEAKWIDTH = 20;
 
 // Extend BaseComponent to get access to events, async, disposables helpers and better error reporting 
 export class MyComponent extends BaseComponent {
@@ -21,74 +22,70 @@ export class MyComponent extends BaseComponent {
   render() {
  
     return (
-      <div>
-        <div style={{display: 'flex', justifyContent: 'space-around', marginBottom: 50}}>
+      <React.Fragment>
 
-          <DefaultButton
-            // Apply ref to componentRef instead of ref
-            componentRef={this._root}
-            styles={{
-              rootHovered: {
-                boxShadow: '4px 4px 4px black'
-              }
-            }}
-            text="Click Me"
-            // flag props should describe the non standard state. 
-            // This way we don't need to state true or false, and it works just like HTML properties
-            primary
-            // Any valid id/className/data-*/aria-* value will be passed on to component
-            className="myClassName"          
-            data-foo="*"
-            // onRender functions allow overriding or append/prepending or default renderer 
-            onRenderMenuIcon={(props, defaultRender) => {
-              return (
-                <span>{defaultRender!()} {props!['data-foo']}</span>
-              );
-            }}
-            // all callback functions start with 'on'. Include subject if it is not the root element
-            onMenuClick={this._onMenuClick}
-            // Child elements often have their entire prop object passed through 
-            // rather than duplicating their props in root component
-            menuProps={ {
-              gapSpace: GAPSPACE,
-              items: [
-                {
-                  key: 'emailMessage',
-                  name: 'Email message',
-                  icon: 'Mail'
-                },
-                {
-                  key: 'calendarEvent',
-                  name: 'Calendar event',
-                  icon: 'Calendar'
-                }
-              ]
+        <DefaultButton
+          // Apply ref to componentRef instead of ref
+          componentRef={this._root}
+
+          // Several components still use the "styles" prop, which takes a flat object of styles.
+          styles={{
+            rootHovered: {
+              boxShadow: '4px 4px 4px black'
             }
-            } 
-          />
-          
-          <Toggle onChanged={this._onToggleChanged} />
+          }}
+          text="Click Me"
 
-          <SearchBox 
-            getStyles={this._getSearchStyles}
-            placeholder="Search Something"
-          />
+          // flag props should describe the non standard state. 
+          // This way we don't need to state true or false, and it works just like HTML properties
+          primary
 
-          <MySearchBox />
-        </div>
+          // Any valid id/className/data-*/aria-* value will be passed on to component
+          className="myClassName"          
+          data-foo="*"
+
+          // onRender functions allow overriding or append/prepending or default renderer 
+          onRenderMenuIcon={(props, defaultRender) => {
+            return (
+              <span>{defaultRender!()} {props!['data-foo']}</span>
+            );
+          }}
+
+          // all callback functions start with 'on'. Include subject if it is not the root element
+          // onClick={}
+          onMenuClick={this._onMenuClick}
+
+          // Child elements often have their entire prop object passed through 
+          // rather than duplicating their props in root component
+          menuProps={ {
+            beakWidth: BEAKWIDTH,
+            isBeakVisible: true,
+            gapSpace: GAPSPACE,
+            items: [
+              {
+                key: 'emailMessage',
+                name: 'Email message',
+                icon: 'Mail'
+              },
+              {
+                key: 'calendarEvent',
+                name: 'Calendar event',
+                icon: 'Calendar'
+              }
+            ]
+          }
+          } 
+        />
         
-      </div>
-    );
-  }
+        <Toggle onChanged={this._onToggleChanged} />
 
-  private _getSearchStyles = (props: ISearchBoxStyleProps): ISearchBoxStyles => {
-    const {underlined, theme: { palette }} = props;
-    return(
-      {
-        root: {
-          background: !underlined ? palette.neutralTertiary : undefined,
-        }
-      }
+        <SearchBox 
+          getStyles={this._getSearchStyles}
+          placeholder="Search Something"
+        />
+
+        <MySearchBox />
+      </React.Fragment>
     );
   }
 
@@ -103,6 +100,19 @@ export class MyComponent extends BaseComponent {
     // Access the referenced button and all of its public methods
     const button = this._root.value!;
     checked ? button.openMenu() : button.dismissMenu();
+  }
+
+  // This is for the SearchBox getStyles function. This is the modern theming approach.
+  // Props are passed in (including state, theme etc) and SearchBox styles are returned
+  private _getSearchStyles = (props: ISearchBoxStyleProps): ISearchBoxStyles => {
+    const {underlined, theme: { palette }} = props;
+    return(
+      {
+        root: {
+          background: !underlined ? palette.neutralTertiary : undefined,
+        }
+      }
+    );
   }
   
 }
