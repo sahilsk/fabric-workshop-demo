@@ -6,7 +6,8 @@ import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { 
   SearchBox, 
   ISearchBoxStyleProps, 
-  ISearchBoxStyles } from 'office-ui-fabric-react/lib/SearchBox';
+  ISearchBoxStyles, 
+  ISearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import { MySearchBox } from './MySearch';
 
 // Put consts in file scope
@@ -18,6 +19,7 @@ export class MyComponent extends BaseComponent {
 
   // Use supplied createRef to create references
   private _root = createRef<IButton>();
+  private _search = createRef<ISearchBox>();
 
   render() {
  
@@ -61,7 +63,19 @@ export class MyComponent extends BaseComponent {
             beakWidth: BEAKWIDTH,
             isBeakVisible: true,
             gapSpace: GAPSPACE,
+            onMenuOpened: () => console.log(this._search.value) &&  this._search.value && this._search.value.focus(),
             items: [
+              {
+                key: 'mySearch',
+                onRender: () => (
+                  <SearchBox 
+                    key="mySearch"
+                    componentRef={this._search}
+                    getStyles={this._getSearchStyles}
+                    placeholder="Search Something"
+                  />
+                )
+              },
               {
                 key: 'emailMessage',
                 name: 'Email message',
