@@ -63,13 +63,14 @@ export class MyComponent extends BaseComponent {
             beakWidth: BEAKWIDTH,
             isBeakVisible: true,
             gapSpace: GAPSPACE,
-            onMenuOpened: () => console.log(this._search.value) &&  this._search.value && this._search.value.focus(),
+            shouldFocusOnMount: false,
+            onMenuOpened: () => console.log(this._search.value) && this._search.value && this._search.value.focus(),
             items: [
               {
                 key: 'mySearch',
-                onRender: () => (
+                onRender: (props) => (
                   <SearchBox 
-                    key="mySearch"
+                    key={props.key}
                     componentRef={this._search}
                     getStyles={this._getSearchStyles}
                     placeholder="Search Something"
