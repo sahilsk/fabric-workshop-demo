@@ -1,13 +1,13 @@
 
 import * as React from 'react';
-import { createRef,  BaseComponent } from 'office-ui-fabric-react/lib/Utilities';
-import { DefaultButton, IButton } from 'office-ui-fabric-react/lib/Button';
-import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { createRef,  BaseComponent, IRenderFunction } from 'office-ui-fabric-react/lib/Utilities';
+import { DefaultButton, IButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { Toggle, IToggleProps } from 'office-ui-fabric-react/lib/Toggle';
 import { 
-  SearchBox, 
-  ISearchBoxStyleProps, 
-  ISearchBoxStyles 
+  SearchBox,
+  ISearchBoxProps
 } from 'office-ui-fabric-react/lib/SearchBox';
+import { items } from './items';
 import { MySearchBox } from './MySearch';
 
 // Put consts in file scope
@@ -45,37 +45,22 @@ export class MyComponent extends BaseComponent {
           className="myClassName"          
           data-foo="*"
 
-          // onRender functions allow overriding or append/prepending or default renderer 
-          onRenderMenuIcon={(props, defaultRender) => {
-            return (
-              <span>{defaultRender!()} {props!['data-foo']}</span>
-            );
-          }}
-
-          // all callback functions start with 'on'. Include subject if it is not the root element
-          // onClick={}
-          onMenuClick={this._onMenuClick}
-
           // Child elements often have their entire prop object passed through 
           // rather than duplicating their props in root component
           menuProps={ {
             beakWidth: BEAKWIDTH,
             isBeakVisible: true,
-            gapSpace: GAPSPACE,
-            items: [
-              {
-                key: 'emailMessage',
-                name: 'Email message',
-                icon: 'Mail'
-              },
-              {
-                key: 'calendarEvent',
-                name: 'Calendar event',
-                icon: 'Calendar'
-              }
-            ]
+            gapSpace: GAPSPACE, 
+            items: items
           }
-          } 
+          }
+          
+          // onRender functions allow overriding or append/prepending or default renderer 
+          onRenderMenuIcon={this._onRenderMenuIcon}
+
+          // all callback functions start with 'on'. Include subject if it is not the root element
+          // onClick={}
+          onMenuClick={this._onMenuClick}
         />
         
         <Toggle onChanged={this._onToggleChanged} />
@@ -86,18 +71,26 @@ export class MyComponent extends BaseComponent {
         />
 
         <MySearchBox />
+
       </React.Fragment>
     );
   }
 
-  private _onMenuClick = (ev: React.MouseEvent<HTMLElement>) => {
+  // We can reference the specific props interface via IInterface['prop']
+  private _onRenderMenuIcon: IButtonProps['onRenderText'] = (props, defaultRender) => {
+    return (
+      <span>{defaultRender!()} {props!['data-foo']}</span>
+    );
+  }
+  
+  private _onMenuClick: IButtonProps['onMenuClick'] = (ev) => {
     if (ev && ev.shiftKey) {
       // prevent default behavior from occuring (opening and closing of menu)
       ev.preventDefault();
     }
   }
 
-  private _onToggleChanged = (checked: boolean) => {
+  private _onToggleChanged: IToggleProps['onChanged'] = (checked) => {
     // Access the referenced button and all of its public methods
     const button = this._root.value!;
     checked ? button.openMenu() : button.dismissMenu();
@@ -105,13 +98,16 @@ export class MyComponent extends BaseComponent {
 
   // This is for the SearchBox getStyles function. This is the modern theming approach.
   // Props are passed in (including state, theme etc) and SearchBox styles are returned
-  private _getSearchStyles = (props: ISearchBoxStyleProps): ISearchBoxStyles => {
-    const {underlined, theme: { palette }} = props;
+  private _getSearchStyles: ISearchBoxProps['getStyles'] = (props) => {
+    const {underlined, hasFocus, theme: { palette }} = props;
     return(
       {
-        root: {
-          background: !underlined ? palette.neutralTertiary : undefined,
-        }
+        root: [
+          'my-Custom-Root-Class',
+          !underlined && hasFocus && {
+            background: 'pink'
+          }
+        ]
       }
     );
   }
