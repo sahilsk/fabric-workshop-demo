@@ -8,14 +8,14 @@ import {
   ISearchBoxProps
 } from 'office-ui-fabric-react/lib/SearchBox';
 import { items } from './items';
-import { MySearchBox } from './MySearch';
+import { NewSearchBox } from './NewSearch';
 
 // Put consts in file scope
 const GAPSPACE = 20;
 const BEAKWIDTH = 20;
 
 // Extend BaseComponent to get access to events, async, disposables helpers and better error reporting 
-export class MyComponent extends BaseComponent {
+export class NewComponent extends BaseComponent {
 
   // Use supplied createRef to create references
   private _root = createRef<IButton>();
@@ -70,13 +70,13 @@ export class MyComponent extends BaseComponent {
           placeholder="Search Something"
         />
 
-        <MySearchBox />
+        <NewSearchBox />
 
       </React.Fragment>
     );
   }
 
-  // We can reference the specific props interface via IInterface['prop']
+  // We can reference the specific props interface via IComponentProps['prop']
   private _onRenderMenuIcon: IButtonProps['onRenderText'] = (props, defaultRender) => {
     return (
       <span>{defaultRender!()} {props!['data-foo']}</span>
@@ -102,8 +102,12 @@ export class MyComponent extends BaseComponent {
     const {underlined, hasFocus, theme: { palette }} = props;
     return(
       {
+        icon: 'custom-icon-class',
+        clearButton: {
+          background: 'white'
+        },
         root: [
-          'my-Custom-Root-Class',
+          'custom-root-class',
           !underlined && hasFocus && {
             background: 'pink'
           }
