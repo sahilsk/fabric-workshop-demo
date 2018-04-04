@@ -1,18 +1,18 @@
 # Fabric BrownBag
 
 ## Links
-[Fabric Documentation](https://developer.microsoft.com/en-us/fabric)
-[Fabric Core: Github](https://github.com/OfficeDev/office-ui-fabric-core)
-[Fabric React: Github](https://github.com/OfficeDev/office-ui-fabric-react)
-[Codepen Fabric Template](https://codepen.io/FabricReact/pen/NvBvWx?editors=1010)
+- [Fabric Documentation](https://developer.microsoft.com/en-us/fabric)
+- [Fabric Core: Github](https://github.com/OfficeDev/office-ui-fabric-core)
+- [Fabric React: Github](https://github.com/OfficeDev/office-ui-fabric-react)
+- [Codepen Fabric Template](https://codepen.io/FabricReact/pen/NvBvWx?editors=1010)
   - Fork Template then create new pen from template
   - Also check out [David Zearing's Codepen](https://codepen.io/dzearing/pens/popular/?grid_type=list#) to see more examples
 
 ## How to Find Help
 
-Github Issues
-V Team - FabricReact
-Teams - Microsoft UI Fabric
+- Github Issues
+- V Team - FabricReact
+- Teams - Microsoft UI Fabric
 
 ## Topics Covered
 
