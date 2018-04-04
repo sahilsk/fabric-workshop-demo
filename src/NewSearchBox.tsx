@@ -8,7 +8,7 @@ import {
 import { styled } from 'office-ui-fabric-react/lib/Utilities';
   
   // Use styled function to create variants of existing controls with unique styles and default props
-export const MySearchBox = styled<ISearchBoxProps, ISearchBoxStyleProps, ISearchBoxStyles>(
+export const NewSearchBox = styled<ISearchBoxProps, ISearchBoxStyleProps, ISearchBoxStyles>(
       SearchBox,
       (styleProps) => ({
           root: {
@@ -18,8 +18,8 @@ export const MySearchBox = styled<ISearchBoxProps, ISearchBoxStyleProps, ISearch
       (props) => {
         return (
           {
-            className: 'ms-MySearchBox',
-            placeholder: 'Please {$props.placeholder}'
+            className: 'ms-NewSearchBox',
+            placeholder: 'Search Something'
           }
         );
       }

@@ -8,3 +8,12 @@ import {
   ISearchBoxProps
 } from 'office-ui-fabric-react/lib/SearchBox';
 import { items } from './items';
+
+export class NewComponent extends React.Component {
+
+  render() {
+    return(
+      <div>component</div>
+    );
+  }
+}
